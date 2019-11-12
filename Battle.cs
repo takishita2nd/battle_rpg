@@ -6,10 +6,6 @@ namespace battle_rpg
     {
         private Charactor yusha;
         private Charactor maou;
-        private const String Statusformat = "{0}：HP{1} 攻撃力{2}";
-        private const String AttackFormat = "{0}の攻撃！{1}に{2}のダメージ";
-        private const String CriticalAttackFormat = "{0}の攻撃！クリティカルヒット！{1}に{2}のダメージ";
-        private const String EvasionFormat = "{0}の攻撃！{1}は攻撃をかわした";
         private const String DieFormat = "{0}は倒れた。";
         public Battle()
         {
@@ -21,24 +17,13 @@ namespace battle_rpg
         {
             bool nowBattle = true;
             while(nowBattle) {
-                int damage = 0;
                 // HP表示
-                Console.WriteLine(Statusformat, yusha.Name, yusha.Hp, yusha.Attack);
-                Console.WriteLine(Statusformat, maou.Name, maou.Hp, maou.Attack);
+                Console.WriteLine(yusha.showStatus());
+                Console.WriteLine(maou.showStatus());
                 Console.WriteLine();
 
                 // 勇者の攻撃
-                if(yusha.isHit(maou)) {
-                    if(yusha.isCritical()) {
-                        damage = yusha.doAttack(maou, true);
-                        Console.WriteLine(CriticalAttackFormat, yusha.Name, maou.Name, damage);
-                    } else {
-                        damage = yusha.doAttack(maou, false);
-                        Console.WriteLine(AttackFormat, yusha.Name, maou.Name, damage);
-                    }
-                } else {
-                    Console.WriteLine(EvasionFormat, yusha.Name, maou.Name);
-                }
+                Console.WriteLine(yusha.doAttack(maou));
 
                 // 魔王死亡判定
                 if(maou.isDie()) {
@@ -53,17 +38,7 @@ namespace battle_rpg
                 }
 
                 // 魔王の攻撃
-                if(yusha.isHit(maou)) {
-                    if(yusha.isCritical()) {
-                        damage = yusha.doAttack(yusha, true);
-                        Console.WriteLine(CriticalAttackFormat, maou.Name, yusha.Name, damage);
-                    } else {
-                        damage = yusha.doAttack(yusha, false);
-                        Console.WriteLine(AttackFormat, maou.Name, yusha.Name, damage);
-                    }
-                } else {
-                    Console.WriteLine(EvasionFormat, maou.Name, yusha.Name);
-                }
+                Console.WriteLine(maou.doAttack(yusha));
 
                 // 勇者死亡判定
                 if(yusha.isDie()) {
