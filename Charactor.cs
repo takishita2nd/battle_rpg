@@ -4,7 +4,7 @@ namespace battle_rpg
 {
     public class Charactor
     {
-        private const String Statusformat = "{0}：HP{1} 攻撃力{2}";
+        private const String StatusFormat = "{0}：HP{1} 攻撃力{2}";
         private const String AttackFormat = "{0}の攻撃！{1}に{2}のダメージ";
         private const String CriticalAttackFormat = "{0}の攻撃！クリティカルヒット！{1}に{2}のダメージ";
         private const String EvasionFormat = "{0}の攻撃！{1}は攻撃をかわした";
@@ -67,11 +67,7 @@ namespace battle_rpg
          */
         private bool isCritical()
         {
-            bool critical = false;
-            if(Common.roleJudge(this.criticalRate)) {
-                critical = true;
-            }
-            return critical;
+            return Common.roleJudge(this.criticalRate);
         }
 
         /**
@@ -89,7 +85,7 @@ namespace battle_rpg
 
         public String showStatus()
         {
-            return String.Format(Statusformat, this.Name, this.Hp, this.Attack);
+            return String.Format(StatusFormat, this.Name, this.Hp, this.Attack);
         }
     }
 }
